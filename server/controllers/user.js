@@ -1,12 +1,12 @@
 import express from 'express';
-import model from '../models';
+import { user } from '../models';
 
-var userRouter = express.Router();
+const router = express.Router();
 
-userRouter.route('/api/user/:_id')
+router.route('/api/user/:_id')
     .get((req, res) => {
         var id = req.params._id;
-        model.user.findById(id, { _id: 1, name: 1, active: 1 })
+        user.findById(id, { _id: 1, name: 1, active: 1 })
         .populate('city', { _id: 1, name: 1, active: 1 })
         .then(data => {
             res.json({ data: data });
@@ -15,7 +15,7 @@ userRouter.route('/api/user/:_id')
         });
     }).delete((req, res) => {
         var id = req.params._id;
-        model.user.remove({ _id: id})
+        user.remove({ _id: id})
         .then(data => {
             res.json({ data: data });
         }).catch(error => {
@@ -24,7 +24,7 @@ userRouter.route('/api/user/:_id')
     }).put((req, res) => {
         var id = req.params._id;
         var user = req.body;
-        model.user.findOneAndUpdate({ _id: id }, user)
+        user.findOneAndUpdate({ _id: id }, user)
         .then(data => {
             res.json({ _id: data._id });
         }).catch(error => {
@@ -32,9 +32,9 @@ userRouter.route('/api/user/:_id')
         });
     });
 
-userRouter.route('/api/users')
+router.route('/api/users')
     .get((req, res) => {
-        model.user.findById(id, { _id: 1, name: 1, active: 1 })
+        user.find({}, { _id: 1, name: 1, active: 1 })
         .populate('city', { _id: 1, name: 1, active: 1 })
         .then(data => {
             res.json({ data: data });
@@ -43,7 +43,7 @@ userRouter.route('/api/users')
         });
     }).post((req, res) => {
         let user = req.body;
-        let userModel = new model.user({
+        let userModel = new user({
             name: user.name,
             city: user.city,
             active: user.active
@@ -56,4 +56,4 @@ userRouter.route('/api/users')
         });
     });
 
-export default userRouter;
+export const userController = router;

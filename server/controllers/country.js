@@ -1,12 +1,12 @@
 import express from 'express';
-import model from '../models';
+import { country } from '../models';
 
-var countryRouter = express.Router();
+const router = express.Router();
 
-countryRouter.route('/api/country/:_id')
+router.route('/api/country/:_id')
     .get((req, res) => {
         let id = req.params._id;
-        model.country.findById(id, { _id: 1, name: 1, active: 1 })
+        country.findById(id, { _id: 1, name: 1, active: 1 })
         .then(data => {
             res.json({ data: data });
         }).catch(error => {
@@ -14,7 +14,7 @@ countryRouter.route('/api/country/:_id')
         });
     }).delete((req, res) => {
         let id = req.params._id;
-        model.country.remove({ _id: id })
+        country.remove({ _id: id })
         .then(data => {
             res.json({ data: data });
         }).catch(error => {
@@ -23,7 +23,7 @@ countryRouter.route('/api/country/:_id')
     }).put((req, res) => {
         let id = req.params._id;
         let country = req.body;
-        model.country.findOneAndUpdate({ _id: id }, country)
+        country.findOneAndUpdate({ _id: id }, country)
         .then(data => {
             res.json({ _id: data._id });
         }).catch(error => {
@@ -31,9 +31,9 @@ countryRouter.route('/api/country/:_id')
         });
     });
 
-countryRouter.route('/api/countries')
+router.route('/api/countries')
     .get((req, res) => {
-        model.country.find({}, { _id: 1, name: 1, active: 1 })
+        country.find({}, { _id: 1, name: 1, active: 1 })
         .then(data => {
             res.json({ data: data });
         }).catch(error => {
@@ -41,7 +41,7 @@ countryRouter.route('/api/countries')
         });
     }).post((req, res) => {
         let country = req.body;
-        let countryModel = new model.country({
+        let countryModel = new country({
             name: country.name,
             active: country.active
         });
@@ -53,4 +53,4 @@ countryRouter.route('/api/countries')
         });
     });
 
-export default countryRouter;
+export const countryController = router;

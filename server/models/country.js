@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-var country = mongoose.model('country', new mongoose.Schema({
+export const country = mongoose.model('country', new mongoose.Schema({
     name: {
         type: String,
         index: {
@@ -9,5 +9,3 @@ var country = mongoose.model('country', new mongoose.Schema({
     },
     active: Boolean
 }));
-
-export default country;

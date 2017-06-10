@@ -1,9 +1,3 @@
-import user from './user';
-import city from './city';
-import country from './country';
-
-export default {
-    user,
-    city,
-    country
-};
+export { user } from './user';
+export { city } from './city';
+export { country } from './country';

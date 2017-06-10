@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-var Schema = mongoose.Schema,
+const Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
-var city = mongoose.model('city', new Schema({
+export const city = mongoose.model('city', new Schema({
     name: {
         type: String,
         index: {
@@ -13,5 +13,3 @@ var city = mongoose.model('city', new Schema({
     country: { type: ObjectId, ref: 'country' },
     active: Boolean
 }));
-
-export default city;

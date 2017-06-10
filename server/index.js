@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import promise from 'promise';
 import config from './config';
-import controllers from './controllers';
+import * as controllers from './controllers';
 
 const app = express();
 

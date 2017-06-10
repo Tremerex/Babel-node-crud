@@ -1,9 +1,3 @@
-import city from './city';
-import country from './country';
-import user from './user';
-
-export default {
-    user,
-    city,
-    country
-};
+export { cityController} from './city';
+export { countryController } from './country';
+export { userController } from './user';
